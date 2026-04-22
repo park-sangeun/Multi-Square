@@ -1,0 +1,1758 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi² Project Page</title>
+  <meta name="description" content="Multi²: Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments" />
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: rgba(255,255,255,.07);
+      --card2: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --border: rgba(255,255,255,.14);
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(94,234,212,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 20%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(900px 600px at 60% 90%, rgba(167,139,250,.16), transparent 55%),
+        var(--bg);
+      min-height: 100vh;
+      padding: 56px 18px;
+    }
+
+    .container{
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    header{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .title{
+      margin: 0;
+      font-weight: 780;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      font-size: clamp(26px, 3.2vw, 40px);
+    }
+    .subtitle{
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15.5px;
+    }
+
+    .pill-row{
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Bigger buttons */
+    .icon-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select: none;
+      font-weight: 650;
+      font-size: 15.5px;
+    }
+
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .icon{
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .section{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      box-shadow: none;
+    }
+
+    .section-title{
+      margin: 0 0 10px 0;
+      font-weight: 760;
+      letter-spacing: -0.01em;
+      font-size: 18px;
+    }
+
+    
+    .section-jump-row{
+      margin: 0 0 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-jump{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.92);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .section-jump:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.24);
+    }
+    .section-jump:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(96,165,250,.28);
+    }
+.section-text{
+      margin: 0;
+      line-height: 1.75;
+      color: rgba(255,255,255,.82);
+      font-size: 15px;
+    }
+
+    .caption{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .hint{
+      margin: 10px 0 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: .95em;
+      color: rgba(255,255,255,.88);
+    }
+
+    .content-grid{
+      margin-top: 22px;
+      display: grid;
+      gap: 22px;
+      grid-template-columns: 1fr; /* stacked layout: Abstract row, then Framework row */
+      align-items: stretch;
+    }
+
+
+    /* Let the Abstract text scroll if it exceeds the shared height */
+    #framework .figure{ overflow: visible; }
+
+    /* Scrollbar styling to match the dark UI (WebKit + Firefox) */
+    #abstract .section-text,
+    #framework .figure{
+      scrollbar-width: thin;                 /* Firefox */
+      scrollbar-color: rgba(255,255,255,.18) rgba(255,255,255,.06);
+    }
+
+    #abstract .section-text::-webkit-scrollbar,
+    #framework .figure::-webkit-scrollbar{
+      width: 10px;
+      height: 10px;
+    }
+
+    #abstract .section-text::-webkit-scrollbar-track,
+    #framework .figure::-webkit-scrollbar-track{
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      margin: 8px;                           /* creates breathing room */
+    }
+
+    #abstract .section-text::-webkit-scrollbar-thumb,
+    #framework .figure::-webkit-scrollbar-thumb{
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,.22),
+        rgba(255,255,255,.12)
+      );
+      border-radius: 999px;
+      border: 2px solid rgba(10,12,18,.35);  /* blends with card background */
+      background-clip: padding-box;
+    }
+
+    #abstract .section-text::-webkit-scrollbar-thumb:hover,
+    #framework .figure::-webkit-scrollbar-thumb:hover{
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,.30),
+        rgba(255,255,255,.16)
+      );
+    }
+
+    #abstract .section-text::-webkit-scrollbar-corner,
+    #framework .figure::-webkit-scrollbar-corner{
+      background: transparent;
+    }
+
+    .figure{
+      margin: 0;
+      padding: 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+    }
+
+    #framework .figure{ overflow: hidden; }
+
+    .figure img{
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      cursor: zoom-in;
+    }
+
+    
+    /* Blend white-background paper figures into the dark UI (mat + subtle tone) */
+    #framework .figure{
+      padding: 14px; /* matte around the figure */
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.20) 0%, rgba(255,255,255,.12) 55%, rgba(255,255,255,.06) 100%);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 14px 50px rgba(0,0,0,.32);
+      }
+    #framework .figure img,
+    #results .figure img,
+    #teaser .figure img{
+      background: #ffffff;                 /* keep paper white inside the matte */
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
+      filter: brightness(.985) contrast(1.01); /* slight tone-down to reduce glare */
+    }
+/* Accessibility: keyboard focus */
+    .icon-btn:focus-visible{
+      outline: 3px solid rgba(96,165,250,.55);
+      outline-offset: 2px;
+    }
+
+    /* Small screens */
+    @media (max-width: 520px){
+      header{ padding: 22px 16px; }
+      .section{ padding: 16px; }
+    }
+  
+    
+    .meta{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14.5px;
+      font-weight: 620;
+    }
+
+    /* Benchmarks */
+    .bench-grid{
+      margin-top: 12px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .bench-card{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      min-height: 140px;
+    }
+    .bench-card:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .bench-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .bench-left{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .bench-icon{
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+    .bench-name{
+      margin: 0;
+      font-weight: 780;
+      letter-spacing: -0.01em;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bench-ext{
+      opacity: .75;
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
+
+    .bench-desc{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 13.5px;
+    }
+
+    .bench-tags{
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag{
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+    }
+
+    /* Code blocks */
+    .codeblock{
+      margin: 12px 0 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      overflow-x: auto;
+      box-shadow: none;
+    }
+    .codeblock code{
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(255,255,255,.88);
+      white-space: pre;
+    }
+
+    /* Details (collapsible) */
+    .details{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      overflow: hidden;
+    }
+    .details > summary{
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 720;
+      color: rgba(255,255,255,.90);
+      list-style: none;
+    }
+    .details > summary::-webkit-details-marker{ display:none; }
+    .details > summary:hover{ background: rgba(255,255,255,.04); }
+    .details[open] > summary{ border-bottom: 1px solid rgba(255,255,255,.14); }
+
+    .details-body{
+      padding: 14px 16px 16px;
+    }
+    .details-title{
+      margin: 14px 0 8px;
+      font-size: 15px;
+      font-weight: 760;
+      letter-spacing: -0.01em;
+    }
+    .details-text{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.78);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+
+
+    /* Image modal (click to enlarge) */
+    .img-modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0,0,0,.72);
+      z-index: 9999;
+    }
+    .img-modal.open{ display: flex; }
+
+    .img-modal .modal-inner{
+      width: min(1200px, 96vw);
+      max-height: 92vh;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(10,16,32,.88);
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+      padding: 12px;
+      position: relative;
+    }
+
+    .img-modal img{
+      width: 100%;
+      height: auto;
+      max-height: 86vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      cursor: zoom-out;
+    }
+
+    .img-modal .close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      font-size: 22px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .img-modal .close:hover{ background: rgba(255,255,255,.12); }
+    .img-modal .close:focus-visible{
+      outline: 3px solid rgba(96,165,250,.55);
+      outline-offset: 2px;
+    }
+
+  
+    /* Final overrides: keep figures fully visible (no inner scrollbars) */
+    #framework,
+    #results{
+      overflow: hidden;
+    }
+    #framework .figure,
+    #results .figure,
+    #teaser .figure{
+      overflow: hidden !important;
+    }
+
+    /* Make the training figure feel less "boxed" */
+    #framework .figure img,
+    #results .figure img,
+    #teaser .figure img{
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Stacked layout needs no special handling, but keep mobile comfortable */
+    @media (max-width: 900px){
+      .content-grid{ gap: 18px; }
+    }
+
+    /* Ensure figures never create inner scrollbars */
+    #framework .figure,
+    #results .figure,
+    #teaser .figure{
+      overflow: hidden !important;
+    }
+
+    /* Make images fit their container cleanly */
+    #framework .figure img,
+    #results .figure img,
+    #teaser .figure img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Optional: slightly larger captions when full-width */
+    #framework .caption,
+    #results .caption{
+      /* customize if needed */
+    }
+
+    /* Key points (Framework) */
+    .keypoints{
+      margin-top: 14px;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+    }
+    .keypoints-title{
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 760;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,.92);
+    }
+    .bullets{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.82);
+      line-height: 1.7;
+      font-size: 14.5px;
+    }
+    .bullets li{ margin: 8px 0; }
+
+
+    /* Key Points as cards (framework) */
+    .keypoints{
+      margin-top: 14px;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+    .key-grid{
+      margin-top: 12px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .key-card{
+      min-height: 0; /* allow cards to shrink naturally */
+    }
+    .key-card .bench-name{
+      white-space: normal; /* allow wrapping for longer titles */
+    }
+    @media (max-width: 900px){
+      .key-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* FINAL OVERRIDES (force matte to near-white + gradient blend) */
+    #framework .figure,
+    #results .figure,
+    #teaser .figure{
+      padding: 18px !important; /* make the matte clearly visible */
+      border-radius: 20px !important;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,.26) 0%,
+        rgba(255,255,255,.16) 55%,
+        rgba(255,255,255,.08) 100%) !important;
+      border: 1px solid rgba(255,255,255,.22) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 14px 50px rgba(0,0,0,.30) !important;
+    }
+    #framework .figure img,
+    #results .figure img,
+    #teaser .figure img{
+      border-radius: 14px !important;
+      border: 1px solid rgba(0,0,0,.10) !important; /* keep edge readable on light matte */
+      box-shadow: 0 10px 28px rgba(0,0,0,.26) !important;
+      background: #fff !important;
+    }
+
+    /* Smooth anchor scroll */
+    html{ scroll-behavior: smooth; }
+
+    /* Teaser: 2-column layout (GIF + quick links) */
+    .teaser-grid{
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+      margin-top: 12px;
+    }
+
+    /* Results: side-by-side figures for Token Efficiency / Horizon Robustness */
+    .results-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+    }
+    .results-grid .figure{ margin: 0; }
+    .results-item .section-text{
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 1180px){
+      .results-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .teaser-side{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+      position: relative;
+    }
+    .teaser-side:before{
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: 10px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(94,234,212,.55), rgba(96,165,250,.55), rgba(167,139,250,.55));
+      opacity: .85;
+      pointer-events: none;
+    }
+    .teaser-side-title{
+      margin: 8px 0 0; /* leave room for the accent bar */
+      font-size: 15.5px;
+      font-weight: 820;
+      letter-spacing: -0.012em;
+      color: rgba(255,255,255,.92);
+    }
+
+    .teaser-link{
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.045);
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .teaser-link:before{
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      border-radius: 999px;
+      background: rgba(96,165,250,.55);
+      opacity: .8;
+    }
+
+    .teaser-link:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.075);
+      border-color: rgba(255,255,255,.26);
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+    }
+    .teaser-link:focus-visible{
+      outline: 3px solid rgba(96,165,250,.55);
+      outline-offset: 2px;
+    }
+    .teaser-thumb{
+      width: 96px;
+      height: 64px;
+      flex: 0 0 auto;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+    }
+    .teaser-link-body{
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .teaser-link-title{
+      margin: 0;
+      font-size: 14.5px;
+      font-weight: 780;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .teaser-link-desc{
+      margin: 0;
+      color: var(--muted);
+      font-size: 12.8px;
+      line-height: 1.45;
+    }
+    .teaser-link-cta{
+      margin-top: 2px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: rgba(255,255,255,.82);
+      opacity: .9;
+    }
+
+    /* Teaser figure sizing inside the grid */
+    #teaser .figure{
+      max-width: 860px;
+      margin: 0;
+    }
+    #teaser .caption{ margin-top: 10px; }
+
+    /* Responsive: stack teaser */
+    @media (max-width: 1180px){
+      .teaser-grid{ grid-template-columns: 1fr; }
+      #teaser .figure{ margin-left: auto; margin-right: auto; }
+    }
+
+    /* Optional: brief highlight when jumping to a section */
+    .section:target{
+      outline: 3px solid rgba(96,165,250,.32);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 6px rgba(96,165,250,.08);
+    }
+
+
+    /* Make links in collapsible details readable on dark background */
+    .details-body a{
+      color: rgba(255,255,255,.92);
+      text-decoration-color: rgba(255,255,255,.35);
+    }
+    .details-body a:hover{
+      color: rgba(255,255,255,1);
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,.55);
+    }
+
+
+    /* Results table figure: show slightly smaller preview (click to zoom) */
+     .table-figure{
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    @media (max-width: 1180px){
+      .table-figure{ max-width: 100%; }
+    }
+
+
+/* =========================
+   Lively UI add-ons
+   (1) Scroll reveal
+   (2) Animated soft background
+   (3) Sticky mini-nav
+   (5) Micro-interactions
+   ========================= */
+
+    /* Ensure animated background stays behind main content */
+    .container{ position: relative; z-index: 1; }
+
+/* (2) Soft animated gradient layer */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 700px at 20% 20%, rgba(94,234,212,.18), transparent 60%),
+    radial-gradient(900px 700px at 80% 30%, rgba(96,165,250,.18), transparent 60%),
+    radial-gradient(900px 700px at 55% 85%, rgba(167,139,250,.16), transparent 60%);
+  filter: blur(42px);
+  opacity: .38;
+  transform: translate3d(0,0,0);
+  animation: bgFloat 18s ease-in-out infinite;
+}
+@keyframes bgFloat{
+  0%   { transform: translate3d(-1.2%, -0.6%, 0) scale(1.02); }
+  50%  { transform: translate3d( 1.4%,  1.0%, 0) scale(1.06); }
+  100% { transform: translate3d(-1.2%, -0.6%, 0) scale(1.02); }
+}
+
+/* (1) Scroll reveal: only active when JS enables it (prevents "blank page" if JS blocked) */
+body.reveal-enabled .reveal{
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .55s ease, transform .55s ease;
+  will-change: opacity, transform;
+}
+body.reveal-enabled .reveal.in-view{
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  body.reveal-enabled .reveal,
+  body.reveal-enabled .reveal.in-view{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  body::before{ animation: none !important; }
+}
+
+/* (3) Sticky mini-nav */
+.mini-nav{
+  position: sticky;
+  top: 14px;
+  z-index: 200;
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+  backdrop-filter: blur(10px);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.mini-nav .mini-nav-label{
+  font-size: 12.5px;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,.76);
+  margin-right: 4px;
+  user-select: none;
+}
+.mini-nav a{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.88);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+.mini-nav a:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.26);
+  box-shadow: 0 10px 26px rgba(0,0,0,.20);
+}
+.mini-nav a:active{
+  transform: translateY(0px);
+  box-shadow: none;
+}
+.mini-nav a.active{
+  border-color: rgba(96,165,250,.55);
+  background: rgba(96,165,250,.18);
+  box-shadow: 0 0 0 4px rgba(96,165,250,.16);
+}
+.mini-nav a:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(96,165,250,.28);
+}
+
+/* (5) Micro-interaction upgrades */
+.icon-btn,
+.bench-card,
+.teaser-link,
+.section-jump{
+  transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease, filter .14s ease;
+}
+.icon-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(0,0,0,.26);
+  filter: saturate(1.02);
+}
+.icon-btn:active{
+  transform: translateY(0px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
+}
+
+.bench-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(0,0,0,.22);
+}
+.bench-card:active{
+  transform: translateY(0px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.18);
+}
+
+.teaser-link:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(0,0,0,.22);
+}
+.teaser-link:active{
+  transform: translateY(0px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.18);
+}
+
+.section-jump:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.18);
+}
+.section-jump:active{
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">
+        <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+          Multi<sup>2</sup>
+        </span>:
+        Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments
+      </h1>
+
+      <p class="meta">Anonymous Authors</p>
+
+      <p class="subtitle">
+        Project page for
+        <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">Multi<sup>2</sup></span>.
+        Use the buttons below to access the Paper / Dataset / Code.
+      </p>
+
+      <div class="pill-row">
+        <!-- <a class="icon-btn" href="https://openreview.net/forum?id=H0tMEp0ZmO&referrer=%5Bthe%20profile%20of%20Sangeun%20Park%5D(%2Fprofile%3Fid%3D~Sangeun_Park1)" target="_blank" rel="noopener noreferrer" aria-label="Open Paper"> -->
+        <a class="icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Open Paper">
+          <span class="icon" aria-hidden="true">
+            <!-- document icon -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3h6l4 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" />
+              <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Paper
+        </a>
+
+        <a class="icon-btn" href="https://huggingface.co/datasets/anonymous-8091/Multi-square" target="_blank" rel="noopener noreferrer" aria-label="Open Dataset">
+          <span class="icon" aria-hidden="true">
+            <!-- database icon -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3c4.418 0 8 1.343 8 3s-3.582 3-8 3-8-1.343-8-3 3.582-3 8-3Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+          </span>
+          Dataset
+        </a>
+
+        <a class="icon-btn" href="https://github.com/anonymous-projectpage/Multi-Square" target="_blank" rel="noopener noreferrer" aria-label="Open Code">
+          <span class="icon" aria-hidden="true">
+            <!-- code icon -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18 3 12l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 4 10 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Code
+        </a>
+      </div>
+    </header>
+
+
+<nav class="mini-nav" id="miniNav" aria-label="Section navigation">
+  <span class="mini-nav-label" aria-hidden="true">Jump:</span>
+  <a href="#teaser" data-target="teaser">Teaser</a>
+  <a href="#abstract" data-target="abstract">Abstract</a>
+  <a href="#framework" data-target="framework">Framework</a>
+  <a href="#benchmarks" data-target="benchmarks">Benchmarks</a>
+  <a href="#results" data-target="results">Results</a>
+  <a href="#how-to-run" data-target="how-to-run">How to Run</a>
+</nav>
+
+
+    <!-- Teaser (GIF) -->
+<section class="section" id="teaser" style="margin-top: 22px;">
+  <h2 class="section-title">Teaser</h2>
+
+  <div class="teaser-grid">
+    <figure class="figure">
+      <img id="teaserGif" class="zoomable" src="Figure/framework.gif" alt="Framework for Multi²" loading="eager" decoding="async" />
+      <figcaption class="caption">
+        GIF: Core idea of Multi². (Click to enlarge)
+      </figcaption>
+    </figure>
+
+    <aside class="teaser-side" aria-label="Quick links">
+      <h3 class="teaser-side-title">See more</h3>
+<a class="teaser-link" href="#abstract" aria-label="Jump to Abstract section">
+        <div class="icon" aria-hidden="true" style="width:96px;height:64px;border-radius:12px;justify-content:center;align-items:center;display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3h6l4 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" />
+            <path d="M14 3v5h5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="teaser-link-body">
+          <p class="teaser-link-title">Abstract</p>
+          <p class="teaser-link-desc">One-paragraph overview of the paper.</p>
+          <div class="teaser-link-cta">Go to Abstract →</div>
+        </div>
+      </a>
+
+      <a class="teaser-link" href="#framework" aria-label="Jump to Framework section">
+        <img class="teaser-thumb" src="Figure/framework.png" alt="Framework diagram thumbnail" loading="lazy" decoding="async" />
+        <div class="teaser-link-body">
+          <p class="teaser-link-title">Framework diagram</p>
+          <p class="teaser-link-desc">Hierarchical roles and training pipeline.</p>
+          <div class="teaser-link-cta">Go to Framework →</div>
+        </div>
+      </a>
+
+      <a class="teaser-link" href="#results" aria-label="Jump to Results section">
+        <img class="teaser-thumb" src="Figure/result.png" alt="Results figure thumbnail" loading="lazy" decoding="async" />
+        <div class="teaser-link-body">
+          <p class="teaser-link-title">Results</p>
+          <p class="teaser-link-desc">Robustness and Efficiency.</p>
+          <div class="teaser-link-cta">Go to Results →</div>
+        </div>
+      </a>
+
+      <a class="teaser-link" href="#how-to-run" aria-label="Jump to How to Run section">
+        <div class="icon" aria-hidden="true" style="width:96px;height:64px;border-radius:12px;justify-content:center;align-items:center;display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18 3 12l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 4 10 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="teaser-link-body">
+          <p class="teaser-link-title">How to run</p>
+          <p class="teaser-link-desc">Setup, environment, and training commands for reproducibility.</p>
+          <div class="teaser-link-cta">Go to How to Run →</div>
+        </div>
+      </a>
+
+    </aside>
+  </div>
+</section>
+<div class="content-grid">
+      <!-- Abstract -->
+      <section class="section" id="abstract">
+        <h2 class="section-title">Abstract</h2>
+        <p class="section-text">
+          A central goal of large language model (LLM) research is to build agentic systems that can plan, act, and adapt through sustained interaction with dynamic environments. 
+          While recent LLM-based agents exhibit impressive contextual reasoning, their long-horizon decision-making remains fragile, often suffering from <em>objective drift</em>, where goals and plans degrade over extended interactions.
+We introduce <strong><code>Multi</code></strong><sup>2</sup>, a hierarchical multi-agent decision-making framework that explicitly decomposes agent behavior into complementary roles. 
+          A high-level agent (<strong><code>System 1</code></strong>) focuses on context-aware sub-goal generation using supervised fine-tuning (SFT), while a low-level agent (<strong><code>System 2</code></strong>) executes atomic actions through offline-to-online reinforcement learning (RL) in interactive environments. 
+          This separation enables stable long-horizon control, mitigates objective drift, and allows efficient adaptation.
+Across diverse interactive environments, <strong><code>Multi</code></strong><sup>2</sup> consistently outperforms strong agentic baselines, demonstrating improved robustness and coordination in multi-turn interaction. 
+          Beyond performance, we introduce and release three hierarchical benchmark datasets, filling a long-standing gap in training and evaluating hierarchical decision-making for LLM-based agents.
+        </p>
+      </section>
+
+      <!-- Framework Figure -->
+      <section class="section" id="framework">
+        <div class="section-jump-row"><a class="section-jump" href="#abstract" aria-label="Jump to Abstract">↑ Abstract</a></div>
+        <h2 class="section-title">Framework</h2>
+
+        <figure class="figure">
+          <!-- TODO: Put your figure at Figure/framework.png (or change the src) -->
+          <img class="zoomable" src="Figure/framework.png" alt="Multi² framework diagram" loading="lazy" />
+          <figcaption class="caption">
+            Figure: Overview of the Multi² hierarchical multi-agent framework.
+          </figcaption>
+        </figure>
+        
+        <div class="keypoints" aria-label="Key points of the Multi² framework">
+          <h3 class="keypoints-title">Key Points</h3>
+
+          <div class="key-grid">
+            <div class="bench-card key-card" role="group" aria-label="Hierarchical role specialization">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- hierarchy icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M6 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                      <path d="M7 20v-5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Hierarchical Roles</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Hierarchical multi-agent framework: decouple <code>System&nbsp;1</code> sub-goal planning from <code>System&nbsp;2</code> action execution; context-aware sub-goals → atomic actions.</p>
+              <div class="bench-tags">
+                <span class="tag">Hierarchical</span>
+                <span class="tag">System 1 / System 2</span>
+                <span class="tag">Sub-goals</span>
+                <span class="tag">Atomic actions</span>
+              </div>
+            </div>
+
+            <div class="bench-card key-card" role="group" aria-label="Role-aligned training">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- target/training icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 21a9 9 0 1 0-9-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M12 17a5 5 0 1 0-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                      <path d="M12 12l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M16 5h3v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Role-Aligned Learning</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Role-aligned training with role specialization: <code>System&nbsp;1</code> supervised fine-tuning (SFT) for context-aware sub-goal planning; <code>System&nbsp;2</code> offline-to-online reinforcement learning (RL).</p>
+              <div class="bench-tags">
+                <span class="tag">Role-aligned</span>
+                <span class="tag">SFT</span>
+                <span class="tag">Offline-to-online RL</span>
+                <span class="tag">Role specialization</span>
+              </div>
+            </div>
+
+            <div class="bench-card key-card" role="group" aria-label="Objective drift mitigation">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- compass/anchor icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 3a9 9 0 1 0 9 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M12 7v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                      <path d="M8.5 10.5L12 7l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Mitigate Objective Drift</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Mitigate <em>objective drift</em> in long-horizon, multi-turn interaction by anchoring execution to explicit sub-goals and improving goal-consistent execution.</p>
+              <div class="bench-tags">
+                <span class="tag">Objective drift</span>
+                <span class="tag">Goal consistency</span>
+                <span class="tag">Long-horizon</span>
+                <span class="tag">Multi-turn</span>
+              </div>
+            </div>
+
+            <div class="bench-card key-card" role="group" aria-label="Offline to online reinforcement learning">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- pipeline icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 7h10a2 2 0 0 1 2 2v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M20 17H10a2 2 0 0 1-2-2V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                      <path d="M16 17l2-2 2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Offline → Online RL</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Offline-to-online RL pipeline: initialize from offline data, then online interaction for continual self-improvement; KL-regularized online refinement stabilizes policy shifts.</p>
+              <div class="bench-tags">
+                <span class="tag">Offline-to-online RL</span>
+                <span class="tag">Online refinement</span>
+                <span class="tag">KL-regularization</span>
+                <span class="tag">Self-improvement</span>
+              </div>
+            </div>
+
+            <div class="bench-card key-card" role="group" aria-label="Token efficient selective invocation">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- lightning icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13 2L4 14h7l-1 8 10-13h-7l0-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Token Efficiency</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Token efficiency via selective invocation: use <code>System&nbsp;1</code> only when needed for sub-goal planning; keep <code>System&nbsp;2</code> lightweight for token-efficient interaction.</p>
+              <div class="bench-tags">
+                <span class="tag">Token efficiency</span>
+                <span class="tag">Selective invocation</span>
+                <span class="tag">System 1</span>
+                <span class="tag">System 2</span>
+              </div>
+            </div>
+
+            <div class="bench-card key-card" role="group" aria-label="Released resources">
+              <div class="bench-top">
+                <div class="bench-left">
+                  <span class="bench-icon" aria-hidden="true">
+                    <!-- dataset icon -->
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8"/>
+                      <path d="M8.5 8h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M8.5 12h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                      <path d="M8.5 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                    </svg>
+                  </span>
+                  <h3 class="bench-name">Hierarchical Datasets</h3>
+                </div>
+              </div>
+              <p class="bench-desc">Role-specific hierarchical datasets: prompt-formatted observation–sub-goal pairs for <code>System&nbsp;1</code> and sub-goal-conditioned transitions for <code>System&nbsp;2</code>; standardized prompt templates for reproducibility.</p>
+              <div class="bench-tags">
+                <span class="tag">Hierarchical datasets</span>
+                <span class="tag">Role-specific</span>
+                <span class="tag">Prompt-formatted</span>
+                <span class="tag">Reproducibility</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </section>
+    </div>
+
+<!-- Benchmarks -->
+    <section class="section" id="benchmarks" style="margin-top: 22px;">
+      <h2 class="section-title">Benchmarks</h2>
+      <p class="section-text" style="margin-bottom: 12px;">
+        Click a benchmark to visit its official page / repository.
+      </p>
+
+      <div class="bench-grid">
+        <a class="bench-card" href="https://github.com/allenai/ScienceWorld" target="_blank" rel="noopener noreferrer" aria-label="Open ScienceWorld">
+          <div class="bench-top">
+            <div class="bench-left">
+              <span class="bench-icon" aria-hidden="true">
+                <!-- beaker icon -->
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.75 3h10.5A2 2 0 0 0 19 18l-5-9V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M8.2 15h7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+                </svg>
+              </span>
+              <h3 class="bench-name">ScienceWorld</h3>
+            </div>
+            <span class="bench-ext" aria-hidden="true">↗</span>
+          </div>
+          <p class="bench-desc">Text-based scientific experimentation in a simulated lab: hypothesis-driven exploration, measurement, and multi-step procedures</p>
+          <div class="bench-tags">
+            <span class="tag">Scientific reasoning</span>
+            <span class="tag">Experimentation</span>
+            <span class="tag">Long-horizon</span>
+          </div>
+        </a>
+
+        <a class="bench-card" href="https://alfworld.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Open ALFWorld">
+          <div class="bench-top">
+            <div class="bench-left">
+              <span class="bench-icon" aria-hidden="true">
+                <!-- home icon -->
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 10.5 12 3l9 7.5V21a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 21V10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M9.5 22.5V14h5v8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h3 class="bench-name">ALFWorld</h3>
+            </div>
+            <span class="bench-ext" aria-hidden="true">↗</span>
+          </div>
+          <p class="bench-desc">Embodied household tasks grounded in ALFRED: language-to-action navigation, object interaction, and compositional goal execution</p>
+          <div class="bench-tags">
+            <span class="tag">Embodied</span>
+            <span class="tag">Household</span>
+            <span class="tag">Object interaction</span>
+          </div>
+        </a>
+
+        <a class="bench-card" href="https://github.com/archiki/ADaPT" target="_blank" rel="noopener noreferrer" aria-label="Open TextCraft">
+          <div class="bench-top">
+            <div class="bench-left">
+              <span class="bench-icon" aria-hidden="true">
+                <!-- hammer icon -->
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 7 6.5 14.5a2.12 2.12 0 0 0 3 3L17 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13 6l2-2 5 5-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11 8 8 5l2-2 3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <h3 class="bench-name">TextCraft</h3>
+            </div>
+            <span class="bench-ext" aria-hidden="true">↗</span>
+          </div>
+          <p class="bench-desc">Crafting and survival-style planning in text: gather–transform–build loops with tool use, dependencies, and resource constraints</p>
+          <div class="bench-tags">
+            <span class="tag">Tool-use</span>
+            <span class="tag">Crafting</span>
+            <span class="tag">Recipe dependencies</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    
+    
+    <!-- Results / Case Study -->
+    <section class="section" id="results" style="margin-top: 22px;">
+      <h2 class="section-title">Results</h2>
+      <p class="section-text" style="margin-bottom: 12px;">
+        Case study: Multi² maintains goal-consistent behavior over long-horizon interaction and improves robustness compared to strong agentic baselines.
+      </p>
+
+      <figure class="figure">
+        <!-- Put your figure at Figure/result.png (or change the src) -->
+        <img class="zoomable" src="Figure/result.png" alt="Case study results" loading="lazy" />
+        <figcaption class="caption">
+          Figure: Case study results in interactive environments. (Click to enlarge)
+        </figcaption>
+      </figure>
+
+
+      
+      <div class="results-grid">
+        <div class="results-item">
+          <p class="section-text">
+            <strong>Token Efficiency.</strong> Multi² achieves stronger performance per token usage, reducing inference cost while maintaining goal-consistent behavior.
+          </p>
+
+          <figure class="figure">
+            <img class="zoomable" src="Figure/result_token_efficiency.png" alt="Token Efficiency" loading="lazy" />
+            <figcaption class="caption">
+              Figure: Token Efficiency. (Click to enlarge)
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="results-item">
+          <p class="section-text">
+            <strong>Horizon Robustness.</strong> Multi² remains robust as task horizons grow, sustaining high success rates over longer interaction sequences compared to strong baselines.
+          </p>
+
+          <figure class="figure">
+            <img class="zoomable" src="Figure/result_horizon_robustness.png" alt="Horizon Robustness" loading="lazy" />
+            <figcaption class="caption">
+              Figure: Horizon Robustness. (Click to enlarge)
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <p class="section-text"> 
+        <strong>Performance.</strong> Multi² achieves the strongest performance across most backbones and splits, suggesting that its gains generalize beyond a particular model setting.
+      </p>
+      <figure class="figure table-figure">
+        <!-- Put your table image at Figure/result_table.png (or change the src) -->
+        <img class="zoomable" src="Figure/result_table.png" alt="Benchmark results table" loading="lazy" />
+        <figcaption class="caption">
+          Table: Main benchmark results across base models and methods. (Click to enlarge)
+        </figcaption>
+      </figure>
+
+      <p class="section-text">
+        <strong>Training Curves for the Online RL Stage.</strong> Performance improves consistently during the online RL stage, indicating effective online adaptation.
+      </p>
+      <figure class="figure table-figure">
+        <!-- Put your table image at Figure/result_online_curve.png (or change the src) -->
+        <img class="zoomable" src="Figure/result_online_curve.png" alt="Training curves for the online RL stage" loading="lazy" />
+        <figcaption class="caption">
+          Figure: Training curves for the online RL stage. (Click to enlarge)
+        </figcaption>
+      </figure>
+
+    </section>
+
+<!-- How to Run / Reproducibility -->
+    <section class="section" id="how-to-run" style="margin-top: 22px;">
+      <h2 class="section-title">How to Run</h2>
+
+      <p class="section-text">
+        Below are the setup and training commands from our installation README. If anything differs from your environment,
+        treat these as reference commands and follow the repository README for the most up-to-date instructions.
+      </p>
+
+      <details class="details" open>
+        <summary>Setup (Linux prerequisites + Anaconda)</summary>
+        <div class="details-body">
+
+          <h3 class="details-title">Install prerequisites (before installing Anaconda)</h3>
+          <pre class="codeblock"><code>sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6</code></pre>
+
+          <h3 class="details-title">Install Anaconda</h3>
+          <p class="section-text" style="margin-top: 0;">
+            Download
+            <a href="https://repo.anaconda.com/archive/Anaconda3-2020.07-Linux-x86_64.sh" target="_blank" rel="noopener noreferrer">Anaconda installer (Linux version)</a>,
+            and run:
+          </p>
+          <pre class="codeblock"><code>sudo apt-get install python3 python python3-pip python-pip git
+bash ~/Downloads/Anaconda3-2020.07-Linux-x86_64.sh</code></pre>
+
+        </div>
+      </details>
+
+      <!-- Environment Setup -->
+      <details class="details">
+        <summary>Environment Setup</summary>
+        <div class="details-body">
+
+          <h3 class="details-title">Benchmark dependencies</h3>
+          <p class="section-text" style="margin-top: 0;">
+            Follow the official instructions to install each benchmark environment:
+            <a href="https://github.com/allenai/ScienceWorld" target="_blank" rel="noopener noreferrer">ScienceWorld</a>,
+            <a href="https://github.com/alfworld" target="_blank" rel="noopener noreferrer">ALFWorld</a>, and
+            <a href="https://github.com/archiki/ADaPT" target="_blank" rel="noopener noreferrer">TextCraft</a>.
+          </p>
+
+          <h3 class="details-title">Clone this repository</h3>
+          <pre class="codeblock"><code>git clone https://github.com/anonymous-projectpage/Multi-Square.git
+cd Multi-2-LLM-Agent</code></pre>
+
+          <h3 class="details-title">Create and activate benchmark-specific environments</h3>
+
+          <p class="section-text" style="margin-top: 0;">
+            We use separate conda environments for training/ScienceWorld evaluation vs. ALFWorld evaluation vs. TextCraft evaluation.
+          </p>
+
+          <h3 class="details-title">Training + ScienceWorld evaluation</h3>
+          <pre class="codeblock"><code>conda create -n Multi_Train_ScienceWorld python=3.10 -y
+conda activate Multi_Train_ScienceWorld
+pip install -r requirements_train+scienceworld.txt</code></pre>
+
+          <h3 class="details-title">ALFWorld evaluation</h3>
+          <pre class="codeblock"><code>conda create -n Multi_ALFWorld python=3.10 -y
+conda activate Multi_ALFWorld
+pip install -r requirements_alfworld.txt</code></pre>
+
+          <h3 class="details-title">TextCraft evaluation</h3>
+          <pre class="codeblock"><code>conda create -n Multi_TextCraft python=3.10 -y
+conda activate Multi_TextCraft
+pip install -r requirements_textcraft.txt</code></pre>
+
+        </div>
+      </details>
+
+      <!-- Model Training -->
+      <details class="details">
+        <summary>Model Training</summary>
+        <div class="details-body">
+
+          <h3 class="details-title">1.1 Supervised Fine-Tuning for System 1</h3>
+          <p class="section-text" style="margin-top: 0;">
+            Set the configuration and base model in <code>./config/multi_bc.json</code>.
+            <br />
+            <code>benchmark</code> can be one of: <code>"scienceworld"</code>, <code>"alfworld"</code>, <code>"textcraft"</code>.
+          </p>
+          <pre class="codeblock"><code>{
+  "benchmark": "scienceworld",
+  "model_name": "/path/to/your/backbone"
+}</code></pre>
+
+          <p class="section-text">
+            Set the checkpoint path in <code>./alg/multi_SFT_sys1.py</code>:
+          </p>
+          <pre class="codeblock"><code>base_ckpt = "/path/to/your/checkpoint"</code></pre>
+
+          <p class="section-text">
+            Choose learning rate candidates in <code>./train_multi_bc.py</code>:
+          </p>
+          <pre class="codeblock"><code>lr_grid = [candidate1, candidate2, ...]</code></pre>
+
+          <p class="section-text">Run:</p>
+          <pre class="codeblock"><code>python train_multi_bc.py</code></pre>
+
+          <h3 class="details-title">1.2 Structure Formatting for System 2</h3>
+          <p class="section-text" style="margin-top: 0;">
+            Set the configuration and base model in <code>./config/multi_rl_sft.json</code>:
+          </p>
+          <pre class="codeblock"><code>{
+  "benchmark": "scienceworld",
+  "model_name": "/path/to/your/backbone"
+}</code></pre>
+
+          <p class="section-text">
+            Set the load path in <code>./alg/multi_warmup_sys2.py</code>:
+          </p>
+          <pre class="codeblock"><code>base_ckpt = "/path/to/your/checkpoint"</code></pre>
+
+          <p class="section-text">Run:</p>
+          <pre class="codeblock"><code>python train_multi_rl_warmup.py</code></pre>
+
+          <h3 class="details-title">1.3 Offline Reinforcement Learning for System 2</h3>
+          <p class="section-text" style="margin-top: 0;">
+            Set the configuration and base model in <code>./config/multi_rl.json</code>:
+          </p>
+          <pre class="codeblock"><code>{
+  "benchmark": "scienceworld",
+  "model_name": "/path/to/your/backbone"
+}</code></pre>
+
+          <p class="section-text">
+            Depending on the benchmark, change the import in <code>./train_multi_rl.py</code>:
+          </p>
+          <pre class="codeblock"><code># ScienceWorld
+from alg.multi_rl_sys2_scienceworld import Multi2
+
+# ALFWorld
+from alg.multi_rl_sys2_alfworld import Multi2
+
+# TextCraft
+from alg.multi_rl_sys2_textcraft import Multi2</code></pre>
+
+          <p class="section-text">
+            Set the trained policy roots in the corresponding algorithm file under <code>./alg/</code>
+            (manually specify paths to the trained System 1 model and the System 2 structure-formatting model). Example:
+          </p>
+          <pre class="codeblock"><code># e.g., ./alg/multi_rl_sys2_*.py
+
+# Path to the trained System 1 (SFT) checkpoint
+high_path = "/path/to/your/system1_sft_checkpoint"
+
+# Path to the trained System 2 warmup checkpoint
+low_path = "/path/to/your/system2_warmup_checkpoint"</code></pre>
+
+          <p class="section-text">Run:</p>
+          <pre class="codeblock"><code>python train_multi_rl.py</code></pre>
+
+        </div>
+      </details>
+
+
+      <!-- Evaluation -->
+      <details class="details">
+        <summary>Evaluation</summary>
+        <div class="details-body">
+
+          <p class="section-text" style="margin-top: 0;">
+            Use the same <code>./config/eval_multi_rl.json</code> for evaluation, and set the model checkpoint paths in the corresponding evaluator.
+          </p>
+
+          <h3 class="details-title">ScienceWorld</h3>
+          <p class="section-text" style="margin-top: 0;">
+            1) Activate the <code>Multi_Train_ScienceWorld</code> environment.<br />
+            2) Set <code>high_path</code> and <code>low_path</code> in <code>./alg/eval_multi_sci.py</code> to your trained checkpoints.<br />
+            3) Run:
+          </p>
+          <pre class="codeblock"><code>python eval_multi_scienceworld.py</code></pre>
+
+          <h3 class="details-title">ALFWorld</h3>
+          <p class="section-text" style="margin-top: 0;">
+            1) Activate the <code>Multi_ALFWorld</code> environment.<br />
+            2) Set <code>high_path</code> and <code>low_path</code> in <code>./alg/eval_multi_alf.py</code>.<br />
+            3) Run:
+          </p>
+          <pre class="codeblock"><code>python eval_multi_alfworld.py</code></pre>
+
+          <h3 class="details-title">TextCraft</h3>
+          <p class="section-text" style="margin-top: 0;">
+            1) Activate the <code>Multi_TextCraft</code> environment.<br />
+            2) Set <code>high_path</code> and <code>low_path</code> in <code>./alg/eval_multi_textcraft.py</code>.<br />
+            3) Run:
+          </p>
+          <pre class="codeblock"><code>python eval_multi_textcraft.py</code></pre>
+
+        </div>
+      </details>
+
+      <p class="hint">
+        Tip: you can link directly to this section using <code>#how-to-run</code>.
+      </p>
+    </section>
+</div>
+
+  <!-- Image modal -->
+  <div class="img-modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Enlarged image view">
+    <div class="modal-inner">
+      <button class="close" id="imgModalClose" aria-label="Close enlarged image">×</button>
+      <img id="imgModalImg" alt="Enlarged figure" />
+    </div>
+  </div>
+
+
+  
+  <script>
+    (function(){
+      const imgs = document.querySelectorAll('img.zoomable');
+      const modal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('imgModalImg');
+      const closeBtn = document.getElementById('imgModalClose');
+
+      if(!imgs.length || !modal || !modalImg || !closeBtn) return;
+
+      function openModal(img){
+        // Use currentSrc first (covers responsive images), then the raw attribute, then resolved src
+        const src = img.currentSrc || img.getAttribute('src') || img.src;
+        if(src) modalImg.src = src;
+
+        modalImg.alt = img.alt || 'Figure';
+        modal.classList.add('open');
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';
+
+        // If the image fails to load, show a small hint instead of a broken icon
+        modalImg.onerror = () => {
+          modalImg.removeAttribute('src');
+          modalImg.alt = 'Image failed to load (check the file path).';
+        };
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modalImg.removeAttribute('src');
+        modalImg.alt = '';
+        modalImg.onerror = null;
+        document.body.style.overflow = '';
+      }
+
+      imgs.forEach((img) => {
+        img.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openModal(img);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      // Ensure the teaser GIF starts from the beginning on each page load (avoid lazy-start/stall)
+      const teaserGif = document.getElementById('teaserGif');
+      if(teaserGif){
+        const base = (teaserGif.getAttribute('src') || '').split('?')[0];
+        if(base) teaserGif.src = base + '?v=' + Date.now();
+      }
+
+
+/* (1) Scroll reveal */
+const revealTargets = [
+  document.querySelector('header'),
+  ...document.querySelectorAll('.section'),
+  ...document.querySelectorAll('.bench-card'),
+  ...document.querySelectorAll('.teaser-link'),
+  ...document.querySelectorAll('.figure'),
+].filter(Boolean);
+
+// Enable reveal styling only when JS is active
+document.body.classList.add('reveal-enabled');
+
+revealTargets.forEach(el => el.classList.add('reveal'));
+
+if('IntersectionObserver' in window){
+  const revealObs = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target); // reveal once
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  revealTargets.forEach(el => revealObs.observe(el));
+}else{
+  // Fallback: show everything
+  revealTargets.forEach(el => el.classList.add('in-view'));
+}
+
+/* (3) Sticky mini-nav scrollspy */
+const miniNav = document.getElementById('miniNav');
+const navLinks = miniNav ? Array.from(miniNav.querySelectorAll('a[data-target]')) : [];
+const sectionIds = navLinks.map(a => a.getAttribute('data-target')).filter(Boolean);
+const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+function setActive(id){
+  navLinks.forEach(a => {
+    const isActive = a.getAttribute('data-target') === id;
+    a.classList.toggle('active', isActive);
+    if(isActive) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+}
+
+if(miniNav && sections.length && 'IntersectionObserver' in window){
+  const spyObs = new IntersectionObserver((entries) => {
+    // pick the most visible intersecting section
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a,b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0))[0];
+    if(visible && visible.target && visible.target.id) setActive(visible.target.id);
+  }, { threshold: [0.12, 0.2, 0.35], rootMargin: '-25% 0px -55% 0px' });
+
+  sections.forEach(sec => spyObs.observe(sec));
+
+  // initialize on load
+  const first = sections.find(s => s.getBoundingClientRect().top >= 0) || sections[0];
+  if(first) setActive(first.id);
+}else if(miniNav && sections.length){
+  // simple fallback
+  setActive(sections[0].id);
+}
+
+    })();
+  </script>
+
+
+</body>
+</html>
