@@ -43,6 +43,23 @@ pip install -r requirements_textcraft.txt
 
 ### Model Training
 
+#### 0. Dataset Preparation
+
+First, download the dataset from <src>https://huggingface.co/datasets/sangeun-park/Multi-Square</src>. Once downloaded, organize the files under `./dataset/` with the following structure:
+
+```text
+./dataset/
+├── scienceworld/
+│   ├── high_data/
+│   └── low_data/
+├── alfworld/
+│   ├── high_data/
+│   └── low_data/
+└── textcraft/
+    ├── high_data/
+    └── low_data/
+```
+
 #### 1. Offline training
 
 ##### 1.1 Supervised Fine-Tuning for System 1
