@@ -955,12 +955,73 @@ body.reveal-enabled .reveal.in-view{
   box-shadow: none;
 }
 
+
+
+    /* Acceptance badge */
+    .acceptance-badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(94,234,212,.32);
+      background: linear-gradient(90deg, rgba(94,234,212,.18), rgba(96,165,250,.14));
+      color: rgba(255,255,255,.95);
+      font-size: 14px;
+      font-weight: 820;
+      letter-spacing: -0.01em;
+      box-shadow: 0 12px 34px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .acceptance-badge .badge-dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(94,234,212,.95);
+      box-shadow: 0 0 0 5px rgba(94,234,212,.12), 0 0 22px rgba(94,234,212,.40);
+      flex: 0 0 auto;
+    }
+
+    /* Citation section */
+    .citation-card{
+      margin-top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+    .citation-label{
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      line-height: 1.65;
+      font-size: 14.5px;
+    }
+    .citation-box{
+      margin: 0;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.035);
+      overflow-x: auto;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .citation-box code{
+      display: block;
+      white-space: pre;
+      line-height: 1.55;
+      font-size: 13.5px;
+      color: rgba(255,255,255,.90);
+    }
+
 </style>
 </head>
 
 <body>
   <div class="container">
     <header>
+      <div class="acceptance-badge" aria-label="ICML acceptance status">
+        <span class="badge-dot" aria-hidden="true"></span>
+        ICML 2026 Accepted
+      </div>
+
       <h1 class="title">
         <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
           Multi<sup>2</sup>
@@ -1025,6 +1086,7 @@ body.reveal-enabled .reveal.in-view{
   <a href="#benchmarks" data-target="benchmarks">Benchmarks</a>
   <a href="#results" data-target="results">Results</a>
   <a href="#how-to-run" data-target="how-to-run">How to Run</a>
+  <a href="#citation" data-target="citation">Citation</a>
 </nav>
 
 
@@ -1603,6 +1665,26 @@ low_path = "/path/to/your/system2_warmup_checkpoint"</code></pre>
         Tip: you can link directly to this section using <code>#how-to-run</code>.
       </p>
     </section>
+
+    <!-- Citation -->
+    <section class="section" id="citation" style="margin-top: 22px;">
+      <h2 class="section-title">Citation</h2>
+      <div class="citation-card">
+        <p class="citation-label">
+          If you find <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">Multi<sup>2</sup></span> useful, please cite our ICML 2026 paper:
+        </p>
+        <pre class="citation-box"><code>@inproceedings{park2026multi2,
+  title     = {Multi$^2$: Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments},
+  author    = {Park, Sangeun and Kwon, Minhae},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  year      = {2026}
+}</code></pre>
+      </div>
+      <p class="hint">
+        Tip: you can link directly to this section using <code>#citation</code>.
+      </p>
+    </section>
+
 </div>
 
   <!-- Image modal -->
