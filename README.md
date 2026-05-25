@@ -217,6 +217,7 @@ python eval_multi_alfworld.py
 python eval_multi_textcraft.py
 ```
 
+### Citation
 If you find Multi<sup>2</sup> useful, please cite our ICML 2026 paper:
 ```
 @inproceedings{park2026multi2,
