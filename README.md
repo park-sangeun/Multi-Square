@@ -1,5 +1,8 @@
-# Multi<sup>2</sup> LLM
-Multi<sup>2</sup>: Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments
+# Multi<sup>2</sup>: Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments
+Sangeun Park<sup>1</sup>, Minhae Kwon<sup>1</sup> </br>
+<sup>1</sup>Sungkyunkwan University (SKKU) </br>
+
+[Paper](https://icml.cc/virtual/2026/poster/65074), [Code](https://github.com/park-sangeun/Multi-Square), [Dataset](https://huggingface.co/datasets/sangeun-park/Multi-Square) </br>
 
 ### Anaconda Installation
 1. Install prerequisites (before installing Anaconda)
@@ -212,4 +215,14 @@ python eval_multi_alfworld.py
 - Set the configuration and base model in ```./config/eval_multi_rl.json```.
 ```
 python eval_multi_textcraft.py
+```
+
+If you find Multi<sup>2</sup> useful, please cite our ICML 2026 paper:
+```
+@inproceedings{park2026multi2,
+  title     = {Multi$^2$: Hierarchical Multi-Agent Decision-Making with LLM-Based Agents in Interactive Environments},
+  author    = {Park, Sangeun and Kwon, Minhae},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  year      = {2026}
+}
 ```
