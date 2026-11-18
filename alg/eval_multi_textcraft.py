@@ -396,7 +396,6 @@ class EvalAgent:
             high_ctx["input_ids"] = torch.cat([high_ctx["input_ids"], sub_tok["input_ids"]], dim=1)
             high_ctx["attention_mask"] = torch.cat([high_ctx["attention_mask"], sub_tok["attention_mask"]], dim=1)
             high_ctx = _clip_to_ctx(high_ctx, self.max_ctx)
-            tok["high_out_sum"] += int(sub_tok["input_ids"].shape[1])
             low_prompt = textcraft_low_prompt + "\\nSubtask: " + subtask.strip() + "\\n"
             rel_block = build_relevant_commands_block_auto(
                 commands_block,
